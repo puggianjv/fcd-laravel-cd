@@ -9,12 +9,12 @@ RUN apk add --no-cache openssl shadow bash mysql-client nodejs npm \
 	
 USER www-data
 COPY . /var/www
-RUN composer install && \
-		chmod -R 777 storage && \
-		chmod -R 777 vendor && \
-		php artisan config:cache && \
-		ln -s public html
-
+RUN composer install
+RUN chmod -R 777 storage
+RUN chmod -R 777 vendor
+RUN php artisan config:cache
+RUN ln -s public html
+		
 EXPOSE 9000
 
 ENTRYPOINT ["php-fpm"]
